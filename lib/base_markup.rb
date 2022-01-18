@@ -13,8 +13,3 @@ module Smck::Components
     end
   end
 end
-
-# sanity check
-%i[eval send].each do |name|
-  raise SecurityError, "Components must not allow #{name}" if Smck::Components.instance_methods.include? name
-end

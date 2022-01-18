@@ -3,9 +3,9 @@
 require 'nokogiri'
 require 'psych'
 
-require 'smck/version'
-require 'smck/base_markup'
-require 'smck/tagged_value'
+require_relative './version'
+require_relative './base_markup'
+require_relative './tagged_value'
 
 module Smck
   class Error < StandardError; end

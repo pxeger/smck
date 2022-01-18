@@ -1,0 +1,16 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.1
+
+Metrics/MethodLength:
+  Max: 30
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  ForbiddenDelimiters:
+    - !ruby/regexp '/^\s*(EO.|END)\s*$/'

@@ -5,4 +5,6 @@ require 'English'
 
 require 'smck'
 
-$DEFAULT_OUTPUT.write Smck::Document.render Psych.safe_load $DEFAULT_INPUT
+input = Psych.safe_load $DEFAULT_INPUT
+output = Smck::Document.render input
+$DEFAULT_OUTPUT.write output

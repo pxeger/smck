@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'psych'
 
 require_relative './version'
+require_relative './options'
 require_relative './base_markup'
 require_relative './tagged_value'
 
@@ -29,13 +30,14 @@ module Smck
 
   # represents a Smck document
   class Document
-    def initialize
+    def initialize(options = Smck::Options.new)
       @doc = Nokogiri::HTML5::Document.parse <<~'END HTML'
         <!DOCTYPE html>
       END HTML
       @html = @doc.root
       @head, = @html > 'head'
       @body, = @html > 'body'
+      @options = options
     end
 
     def create_element(...)
@@ -78,8 +80,8 @@ module Smck
       @doc.to_html
     end
 
-    def self.render(data)
-      doc = new
+    def self.render(data, options = Smck::Options.new)
+      doc = new(options)
       doc.render data
       doc.to_html
     end

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'forwardable'
 require 'nokogiri'
 require 'psych'
 
@@ -23,13 +24,8 @@ module Smck
       @options = options
     end
 
-    def create_element(...)
-      @doc.create_element(...)
-    end
-
-    def create_text_node(...)
-      @doc.create_text_node(...)
-    end
+    extend Forwardable
+    def_delegators :@doc, :create_element, :create_text_node
 
     # render YAML +data+ to the document's +body+
     def render(data)

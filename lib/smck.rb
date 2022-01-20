@@ -5,36 +5,11 @@ require 'psych'
 
 require_relative './version'
 require_relative './options'
-require_relative './base_markup'
+require_relative './components'
 require_relative './tagged_value'
 
 module Smck
   class Error < StandardError; end
-
-  # Components module contains methods for rendering different tags of markup
-  # They are defined as instance methods rather than class methods to allow avoiding send, which is insecure
-  module Components
-    # core markup definitions
-
-    def ignore(data, parent) end
-
-    def str(data, parent)
-      parent.add_child create_text_node data
-    end
-
-    def raw_html(data, parent)
-      raise Error, 'raw_html is not allowed' unless @options.allow_raw_html
-
-      raise Error, "raw_html requires a string (found #{data.class})" unless data.is_a? String
-
-      parent.add_child data
-    end
-  end
-
-  # sanity check
-  %i[eval send].each do |name|
-    raise SecurityError, "Components must not allow #{name}" if Smck::Components.instance_methods.include? name
-  end
 
   # represents a Smck document
   class Document
